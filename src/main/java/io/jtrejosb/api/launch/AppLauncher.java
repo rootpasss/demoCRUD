@@ -24,10 +24,8 @@ import javax.swing.UIManager;
 import io.jtrejosb.api.controller.AppController;
 import io.jtrejosb.api.model.AppModel;
 import io.jtrejosb.api.view.AppView;
-
 import io.jtrejosb.api.view.PrintView;
-import io.jtrejosb.api.view.QueryView;//Temporal
-//import io.jtrejosb.api.view.TableView;
+import io.jtrejosb.api.view.QueryView;
 
 public class AppLauncher {
   public static void main(String[] args) {

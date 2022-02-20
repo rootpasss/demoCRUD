@@ -84,7 +84,7 @@ public class AppView extends javax.swing.JFrame {
 
     bCalc=new JButton("Calcular");
     bPrintAll=new JButton("Imprimir Total");
-    bQueryAll=new JButton("Consulta Total");//TODO: Create view for this action (frame with JTable)
+    bQueryAll=new JButton("Consulta Total");
     bFind=new JButton("Consultar");
 
     lProm=new JLabel();
