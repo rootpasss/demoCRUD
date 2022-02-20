@@ -25,6 +25,9 @@ import io.jtrejosb.api.controller.AppController;
 import io.jtrejosb.api.model.AppModel;
 import io.jtrejosb.api.view.AppView;
 
+import io.jtrejosb.api.view.PrintView;
+import io.jtrejosb.api.view.QueryView;//Temporal
+
 public class AppLauncher {
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
@@ -32,10 +35,10 @@ public class AppLauncher {
       public void run() {
         try {
           UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-          /*AppModel APM=new AppModel();
+          AppModel APM=new AppModel();
           AppView APV=new AppView();
-          new AppController(APM,APV);*/
-          new AppView();
+          QueryView QV=new QueryView();
+          new AppController(APM,APV,QV);
         } catch(Exception e) {
           e.printStackTrace();
         }

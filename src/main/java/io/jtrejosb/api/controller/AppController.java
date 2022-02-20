@@ -21,25 +21,34 @@ import java.util.List;
 
 import io.jtrejosb.api.model.AppModel;
 import io.jtrejosb.api.view.AppView;
+import io.jtrejosb.api.view.PrintView;
+import io.jtrejosb.api.view.QueryView;
 
 public class AppController {
   private AppModel APM;
   private AppView APV;
+  private QueryView QV;
+  private final int PRINT_OPTION=0;
+  private final int TABLE_OPTION=1;
 
-  public AppController(AppModel APM,AppView APV) {
+  public AppController(AppModel APM,AppView APV,QueryView QV) {
     this.APM=APM;
     this.APV=APV;
-    this.APV.addFindListener(e->find());
-    this.APV.addQueryAllListener(e->findAll());
+    this.QV=QV;
+    this.APV.addFindListener(e->QV.setVisible(true));
+    this.APV.addPrintAllListener(e->findAll(PRINT_OPTION));
+    this.APV.addQueryAllListener(e->findAll(TABLE_OPTION));
+    this.APV.addStoreListener(e->create());
+    this.QV.addQueryListener(e->find());
   }
 
   private void find() {
-    String ID=APV.getStudentID();
+    String ID=QV.getStudentID();
     if(!ID.isEmpty()) {
       String Q="SELECT * FROM students WHERE ID = ?";
-      List<String> datalist=APM.getData(Q,ID);
+      List<Object> datalist=APM.getData(Q,ID);
       if(datalist.size()>0)
-        APV.applyData(datalist);
+        QV.applyData(datalist);
       else
         APV.showWarning("No students with ID '"+ID+"' were found",2);
     } else {
@@ -47,12 +56,32 @@ public class AppController {
     }
   }
 
-  private void findAll() {
+  private void findAll(int option) {
     String Q="SELECT * FROM students";
-    List<String> datalist=APM.getData(Q,null);
-    if(datalist.size()>0)
-      APV.applyData(datalist);
-    else
-      APV.showWarning("No students were found",2);
+    List<Object> datalist=APM.getData(Q,null);
+    if(datalist.size()>0) {
+      if(option==PRINT_OPTION) {
+        PrintView PV=new PrintView();
+        PV.applyData(datalist);
+      } else {
+        //TODO: send data to table view
+      }
+    }
+  }
+
+  private void create() {
+    String name=APV.getStudentName();
+    String id=APV.getStudentID();
+    double g1=APV.getGrade1();
+    double g2=APV.getGrade2();
+    double g3=APV.getGrade3();
+    if(!name.isEmpty()&&!id.isEmpty()&&(g1>=0||g1<=5)&&(g2>=0||g2<=5)&&(g3>=0||g3<=5)) {
+      double avg=(g1+g2+g3)/3;
+      APM.store(id,name,g1,g2,g3,avg);
+      APV.updatePromLabel(avg);
+      APV.clearGradesFields();
+    } else  {
+      APV.showWarning("Be sure that every field is filled correctly",0);
+    }
   }
 }

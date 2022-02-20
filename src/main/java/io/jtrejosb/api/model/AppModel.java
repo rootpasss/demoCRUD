@@ -50,23 +50,43 @@ public class AppModel {
     }
   }
 
-  public List<String> getData(String Q,String ID) {
-    List<String>datalist=new ArrayList<>();
+  public List<Object> getData(String Q,String ID) {
+    List<Object>datalist=new ArrayList<>();
     try {
       PreparedStatement PS=CC.prepareStatement(Q);
       if(ID!=null)
         PS.setString(1,ID);
       ResultSet RS=PS.executeQuery();
       while(RS.next()) {
-        datalist.add(RS.getString("id"));
-        datalist.add(RS.getString("name"));
-        datalist.add(RS.getString("grade1"));
-        datalist.add(RS.getString("grade2"));
-        datalist.add(RS.getString("grade3"));
+        datalist.add(new Entity(RS.getString("id"),
+                                RS.getString("name"),
+                                RS.getString("grade1"),
+                                RS.getString("grade2"),
+                                RS.getString("grade3"),
+                                RS.getString("average")));
       }
     } catch(Exception e) {
       e.printStackTrace();
     }
     return datalist;
+  }
+
+  public void store(String ID,String name,double grade1,double grade2,double grade3,double average) {
+    try {
+      String Q="INSERT INTO students values(?,?,?,?,?,?)";
+      PreparedStatement PS=CC.prepareStatement(Q);
+      PS.setString(1,ID);
+      PS.setString(2,name);
+      PS.setDouble(3,grade1);
+      PS.setDouble(4,grade2);
+      PS.setDouble(5,grade3);
+      PS.setDouble(6,average);
+      PS.executeUpdate();
+      System.out.println("[INFO] Data has been stored");
+      System.out.println(average);
+      System.out.println("Se registra en la BD");
+    } catch(SQLException e) {
+      e.printStackTrace();
+    }
   }
 }

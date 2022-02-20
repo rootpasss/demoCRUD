@@ -20,6 +20,8 @@ package io.jtrejosb.api.view;
 import java.awt.Color;
 import java.awt.Font;
 
+import java.text.DecimalFormat;
+
 import java.util.List;
 
 import javax.swing.JButton;
@@ -45,7 +47,7 @@ public class AppView extends javax.swing.JFrame {
   private JLabel lStatus;
 
   public AppView() {
-    super("Calculo de Promedio");
+    super("CALCULO DE PROMEDIO");
     System.out.println("[INFO] Preparing GUI client...");
     setSize(450,400);
     setLocationRelativeTo(null);
@@ -80,16 +82,14 @@ public class AppView extends javax.swing.JFrame {
     fGrade2=new Field("Nota 2");
     fGrade3=new Field("Nota 3");
 
-    //TODO: Add button listeners
     bCalc=new JButton("Calcular");
-    //bCalc.addActionListener(e->calcAverage());
     bPrintAll=new JButton("Imprimir Total");
-    bQueryAll=new JButton("Consulta Total");
+    bQueryAll=new JButton("Consulta Total");//TODO: Create view for this action (frame with JTable)
     bFind=new JButton("Consultar");
 
-    lProm=new JLabel("Promedio: 0.0");
+    lProm=new JLabel();
     lProm.setFont(new Font(lProm.getFont().getFontName(),Font.PLAIN,17));
-    lStatus=new JLabel("RESULTADO: PIERDE LA MATERIA");
+    lStatus=new JLabel();
     lStatus.setFont(new Font(lProm.getFont().getFontName(),Font.PLAIN,17));
     lStatus.setForeground(Color.RED);
 
@@ -124,6 +124,26 @@ public class AppView extends javax.swing.JFrame {
     return fCode.getText();
   }
 
+  public String getStudentName() {
+    return fName.getText();
+  }
+
+  public double getGrade1() {
+    return Double.parseDouble(fGrade1.getText().isEmpty()?"-1":fGrade1.getText());
+  }
+
+  public double getGrade2() {
+    return Double.parseDouble(fGrade2.getText().isEmpty()?"-1":fGrade2.getText());
+  }
+
+  public double getGrade3() {
+    return Double.parseDouble(fGrade3.getText().isEmpty()?"-1":fGrade3.getText());
+  }
+
+  public void addStoreListener(java.awt.event.ActionListener L) {
+    bCalc.addActionListener(L);
+  }
+
   public void addFindListener(java.awt.event.ActionListener L) {
     bFind.addActionListener(L);
   }
@@ -136,16 +156,34 @@ public class AppView extends javax.swing.JFrame {
     bQueryAll.addActionListener(L);
   }
 
-  public void applyData(List<String> datalist) {
-    fName.setText(datalist.get(0));
-    fGrade1.setText(datalist.get(1));
-    fGrade2.setText(datalist.get(2));
-    fGrade3.setText(datalist.get(3));
+  /*public void applyData(List<Object> datalist) {
+    fName.setText(datalist.get(1));
+    fGrade1.setText(datalist.get(2));
+    fGrade2.setText(datalist.get(3));
+    fGrade3.setText(datalist.get(4));
+  }*/
+
+  public void updatePromLabel(double value) {
+    DecimalFormat DF=new DecimalFormat("#.##");
+    lProm.setText("Promedio: "+String.valueOf(DF.format(value)));
+    if(value>=3) {
+      lStatus.setForeground(Color.GREEN.darker());
+      lStatus.setText("RESULTADO: GANA LA MATERIA");
+    } else {
+      lStatus.setForeground(Color.RED);
+      lStatus.setText("RESULTADO: PIERDE LA MATERIA");
+    }
   }
 
   public void showWarning(String W,int TYPE) {
     //clearAllFields();
     String TITLE=TYPE==0?"Missing Data Input":"Notice";
     JOptionPane.showMessageDialog(null,W,TITLE,TYPE);
+  }
+
+  public void clearGradesFields() {
+    fGrade1.setText("");
+    fGrade2.setText("");
+    fGrade3.setText("");
   }
 }
