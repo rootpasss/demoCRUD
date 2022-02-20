@@ -176,7 +176,7 @@ public class AppView extends javax.swing.JFrame {
   }
 
   public void showWarning(String W,int TYPE) {
-    //clearAllFields();
+    java.awt.Toolkit.getDefaultToolkit().beep();
     String TITLE=TYPE==0?"Missing Data Input":"Notice";
     JOptionPane.showMessageDialog(null,W,TITLE,TYPE);
   }

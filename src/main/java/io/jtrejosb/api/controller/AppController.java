@@ -65,6 +65,7 @@ public class AppController {
         PV.applyData(datalist);
       } else {
         //TODO: send data to table view
+        APV.showWarning("This service will be available soon",2);
       }
     }
   }
