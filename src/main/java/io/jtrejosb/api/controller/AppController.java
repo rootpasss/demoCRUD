@@ -23,6 +23,7 @@ import io.jtrejosb.api.model.AppModel;
 import io.jtrejosb.api.view.AppView;
 import io.jtrejosb.api.view.PrintView;
 import io.jtrejosb.api.view.QueryView;
+import io.jtrejosb.api.view.TableView;
 
 public class AppController {
   private AppModel APM;
@@ -64,8 +65,8 @@ public class AppController {
         PrintView PV=new PrintView();
         PV.applyData(datalist);
       } else {
-        //TODO: send data to table view
-        APV.showWarning("This service will be available soon",2);
+        TableView TV=new TableView();
+        TV.applyData(datalist);
       }
     }
   }

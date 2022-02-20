@@ -156,13 +156,6 @@ public class AppView extends javax.swing.JFrame {
     bQueryAll.addActionListener(L);
   }
 
-  /*public void applyData(List<Object> datalist) {
-    fName.setText(datalist.get(1));
-    fGrade1.setText(datalist.get(2));
-    fGrade2.setText(datalist.get(3));
-    fGrade3.setText(datalist.get(4));
-  }*/
-
   public void updatePromLabel(double value) {
     DecimalFormat DF=new DecimalFormat("#.##");
     lProm.setText("Promedio: "+String.valueOf(DF.format(value)));
