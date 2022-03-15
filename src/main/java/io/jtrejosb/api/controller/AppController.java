@@ -28,14 +28,18 @@ import io.jtrejosb.api.view.TableView;
 public class AppController {
   private AppModel APM;
   private AppView APV;
+  private PrintView PV;
   private QueryView QV;
+  private TableView TV;
   private final int PRINT_OPTION=0;
   private final int TABLE_OPTION=1;
 
-  public AppController(AppModel APM,AppView APV,QueryView QV) {
+  public AppController(AppModel APM,AppView APV,QueryView QV,PrintView PV,TableView TV) {
     this.APM=APM;
     this.APV=APV;
+    this.PV=PV;
     this.QV=QV;
+    this.TV=TV;
     this.APV.addFindListener(e->QV.setVisible(true));
     this.APV.addPrintAllListener(e->findAll(PRINT_OPTION));
     this.APV.addQueryAllListener(e->findAll(TABLE_OPTION));
@@ -62,11 +66,11 @@ public class AppController {
     List<Object> datalist=APM.getData(Q,null);
     if(datalist.size()>0) {
       if(option==PRINT_OPTION) {
-        PrintView PV=new PrintView();
         PV.applyData(datalist);
+        PV.setVisible(true);
       } else {
-        TableView TV=new TableView();
         TV.applyData(datalist);
+        TV.setVisible(true);
       }
     }
   }
