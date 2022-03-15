@@ -26,6 +26,7 @@ import io.jtrejosb.api.model.AppModel;
 import io.jtrejosb.api.view.AppView;
 import io.jtrejosb.api.view.PrintView;
 import io.jtrejosb.api.view.QueryView;
+import io.jtrejosb.api.view.TableView;
 
 public class AppLauncher {
   public static void main(String[] args) {
@@ -36,8 +37,10 @@ public class AppLauncher {
           UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
           AppModel APM=new AppModel();
           AppView APV=new AppView();
+          PrintView PV=new PrintView();
           QueryView QV=new QueryView();
-          new AppController(APM,APV,QV);
+          TableView TV=new TableView();
+          new AppController(APM,APV,QV,PV,TV);
         } catch(Exception e) {
           e.printStackTrace();
         }
