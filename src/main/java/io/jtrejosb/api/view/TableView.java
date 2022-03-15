@@ -65,19 +65,20 @@ public class TableView extends javax.swing.JFrame {
 
     contentPane.add(lTitle);
     contentPane.add(SP);
-    setVisible(true);
   }
 
   public void applyData(List<Object> datalist) {
-    for(Object O:datalist) {
-      M.addRow(new Object[]{
-        ((Entity)O).getID(),
-        ((Entity)O).getName(),
-        ((Entity)O).getGrade1(),
-        ((Entity)O).getGrade2(),
-        ((Entity)O).getGrade3(),
-        ((Entity)O).getAverage()
-      });
+    if(M.getRowCount()==0) {
+      for(Object O:datalist) {
+        M.addRow(new Object[]{
+          ((Entity)O).getID(),
+          ((Entity)O).getName(),
+          ((Entity)O).getGrade1(),
+          ((Entity)O).getGrade2(),
+          ((Entity)O).getGrade3(),
+          ((Entity)O).getAverage()
+        });
+      }
     }
   }
 }

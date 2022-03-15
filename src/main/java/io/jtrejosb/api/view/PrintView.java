@@ -61,12 +61,13 @@ public class PrintView extends javax.swing.JFrame {
 
     contentPane.add(lTitle);
     contentPane.add(SP);
-    setVisible(true);
   }
 
   public void applyData(List<Object> datalist) {
     System.out.println("Desde ventana consulta general");
-    for(Object O:datalist)
-      TA.append(O.toString());
+    if(TA.getText().isEmpty()) {
+      for(Object O:datalist)
+        TA.append(O.toString());
+    }
   }
 }
