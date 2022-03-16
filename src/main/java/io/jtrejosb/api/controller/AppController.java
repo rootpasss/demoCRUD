@@ -100,7 +100,8 @@ public class AppController {
       APV.clearGradesFields();
       updateViewsOnly();
     } else  {
-      APV.showWarning("Be sure that every field is filled correctly",0);
+      APV.showWarning("Be sure that every field is filled correctly.\n"+
+          "Also note that every qualification must be estrictly between 0 and 5",0);
     }
   }
 }
