@@ -170,7 +170,7 @@ public class AppView extends javax.swing.JFrame {
 
   public void showWarning(String W,int TYPE) {
     java.awt.Toolkit.getDefaultToolkit().beep();
-    String TITLE=TYPE==0?"Missing Data Input":"Notice";
+    String TITLE=TYPE==0?"Invalid Data Input":"Notice";
     JOptionPane.showMessageDialog(null,W,TITLE,TYPE);
   }
 
