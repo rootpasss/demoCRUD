@@ -68,17 +68,16 @@ public class TableView extends javax.swing.JFrame {
   }
 
   public void applyData(List<Object> datalist) {
-    if(M.getRowCount()==0) {
-      for(Object O:datalist) {
-        M.addRow(new Object[]{
-          ((Entity)O).getID(),
-          ((Entity)O).getName(),
-          ((Entity)O).getGrade1(),
-          ((Entity)O).getGrade2(),
-          ((Entity)O).getGrade3(),
-          ((Entity)O).getAverage()
-        });
-      }
+    M.setRowCount(0);//Clear table model rows and prevents data duplication
+    for(Object O:datalist) {
+      M.addRow(new Object[]{
+        ((Entity)O).getID(),
+        ((Entity)O).getName(),
+        ((Entity)O).getGrade1(),
+        ((Entity)O).getGrade2(),
+        ((Entity)O).getGrade3(),
+        ((Entity)O).getAverage()
+      });
     }
   }
 }
