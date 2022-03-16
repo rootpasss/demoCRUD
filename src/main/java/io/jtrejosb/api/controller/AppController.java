@@ -75,17 +75,30 @@ public class AppController {
     }
   }
 
+  /* this method is called strictly when a new record has been stored in the DDBB
+   * the purpose is to update the PrintView and TableView views automatically when any
+   * or both of these may be opened/showed */
+  private void updateViewsOnly() {
+    String Q="SELECT * FROM students";
+    List<Object> datalist=APM.getData(Q,null);
+    if(datalist.size()>0) {
+      PV.applyData(datalist);
+      TV.applyData(datalist);
+    }
+  }
+
   private void create() {
     String name=APV.getStudentName();
     String id=APV.getStudentID();
     double g1=APV.getGrade1();
     double g2=APV.getGrade2();
     double g3=APV.getGrade3();
-    if(!name.isEmpty()&&!id.isEmpty()&&(g1>=0||g1<=5)&&(g2>=0||g2<=5)&&(g3>=0||g3<=5)) {
+    if(!name.isEmpty() && !id.isEmpty() && (g1>=0&&g1<=5) && (g2>=0&&g2<=5) && (g3>=0&&g3<=5)) {
       double avg=(g1+g2+g3)/3;
       APM.store(id,name,g1,g2,g3,avg);
       APV.updatePromLabel(avg);
       APV.clearGradesFields();
+      updateViewsOnly();
     } else  {
       APV.showWarning("Be sure that every field is filled correctly",0);
     }
