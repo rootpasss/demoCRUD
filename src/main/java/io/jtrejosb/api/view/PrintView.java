@@ -65,9 +65,8 @@ public class PrintView extends javax.swing.JFrame {
 
   public void applyData(List<Object> datalist) {
     System.out.println("Desde ventana consulta general");
-    if(TA.getText().isEmpty()) {
-      for(Object O:datalist)
-        TA.append(O.toString());
-    }
+    TA.setText("");//prevents data duplication appends
+    for(Object O:datalist)
+      TA.append(O.toString());
   }
 }
