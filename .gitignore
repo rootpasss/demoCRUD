@@ -23,6 +23,3 @@ hs_err_pid*
 
 # Maven directory
 target/
-
-# Database script directory
-database/
